@@ -16,13 +16,18 @@ class Spider:
         question_list_request=requests.get(url=(self.base_search_url+self.question),params=data,headers=headers)
         question_list_soup=BeautifulSoup(question_list_request.text)
         question_atag_list=question_list_soup.find_all('a')
+        question_atag_string_list=[]
+        for atag in question_atag_list:
+            question_atag_string_list.append(str(atag))
         pattern=re.compile('/question/(\d+)')
-        question_number_list=list()
-        for item in question_atag_list:
-            question_number=pattern.search(item).group().strip()
-            if  question_number is not None:
-               question_number_list.append()
-
+        question_number_list=[]
+        for item in question_atag_string_list:
+            question_number_regex=pattern.search(item)
+            if question_number_regex is not None:
+                question_number=question_number_regex.group(1)
+                question_number_list.append(question_number)
+                print question_number
+        return question_number_list
 
     def get_concrete_question(self,question_number):
         pass
@@ -32,3 +37,4 @@ class Spider:
 if __name__=='__main__':
     spider=Spider("asd")
     spider.get_question_list()
+
