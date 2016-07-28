@@ -14,7 +14,7 @@ class Spider:
                  'Referer':'http://www.zhihu.com/search?type=content&q=asd',
                  'Host':'www.zhihu.com'}
         question_list_request=requests.get(url=(self.base_search_url + self.topic), params=data, headers=headers)
-        question_list_soup=BeautifulSoup(question_list_request.text)
+        question_list_soup=BeautifulSoup(question_list_request.text,'lxml')
         question_atag_list=question_list_soup.find_all('a')
         question_atag_string_list=[]
         for atag in question_atag_list:
@@ -35,12 +35,18 @@ class Spider:
         headers={'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.75 Safari/537.36',
                  'Referer':'http://www.zhihu.com/search?type=content&q=asd',
                  'Host':'www.zhihu.com'}
-        question_request=requests.get(question_base_url+question_number)
+        question_request=requests.get(question_base_url+question_number,headers=headers)
+        question_soup=BeautifulSoup(question_request.text,'lxml')
+        question_name=question_soup.find('div',id='zh-question-title').contents[1].contents[1].string
+        print question_name
 
-
+        question_div_list=question_soup.find_all('div',class_='zm-item-answer')
+        for item in question_div_list:
+            pass
 
 
 if __name__=='__main__':
     spider=Spider("asd")
     spider.get_question_list()
+    spider.get_concrete_question('26417244')
 
