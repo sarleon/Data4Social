@@ -2,6 +2,7 @@
 import requests
 import re
 from bs4 import BeautifulSoup
+
 import sqlalchemy
 class Spider:
     base_search_url="http://www.zhihu.com/search?type=content&q="
@@ -40,9 +41,18 @@ class Spider:
         question_name=question_soup.find('div',id='zh-question-title').contents[1].contents[1].string
         print question_name
 
-        question_div_list=question_soup.find_all('div',class_='zm-item-answer')
-        for item in question_div_list:
-            pass
+        answer_div_list=question_soup.find_all('div',class_='zm-item-answer')
+        i=0
+        for answer_div_list_item in answer_div_list:
+            i=i+1
+            answer_upvote=answer_div_list_item
+            answer_content=str(answer_div_list_item.find('div','zm-item-rich-text').find('div','zm-editable-content'))
+            answer_content=re.sub("<.*?>",'',answer_content)
+            print "**********************************************************"
+
+            print "answer"+str(i)
+            print answer_content
+
 
 
 if __name__=='__main__':
