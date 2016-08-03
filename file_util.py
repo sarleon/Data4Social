@@ -4,8 +4,13 @@ class File_helper:
     FILE_DIR='./result'
     question_list=['No1_lsc_minority_people',
                        'No2_lsc_USA_election']
+
     def __init__(self,question_number,info_source,description=None):
-        question=self.question_list[question_number-1]
+        self.question=self.question_list[question_number-1]
+        self.f=open(name=self.FILE_DIR+question_number+info_source+description,mode='w',encoding='utf-8')
+    def append_line(self,content):
+        self.f.write(content)
+
 
 
 

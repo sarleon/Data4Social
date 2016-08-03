@@ -50,7 +50,7 @@ class Spider:
             answer_content=re.sub("<.*?>",'',answer_content)
             print "**********************************************************"
 
-            print "answer"+str(i)
+            print "答案"+str(i)
             print answer_content
 
 
