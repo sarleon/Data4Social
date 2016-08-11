@@ -9,6 +9,7 @@ class File_helper:
         self.question=self.question_list[question_number-1]
         self.f=open(name=self.FILE_DIR+str(question_number)+info_source+description,mode='w')
     def append_line(self,content):
+
         self.f.write(content+"\n")
 
 
