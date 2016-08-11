@@ -7,26 +7,34 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from file_util import File_helper
 class Spider:
-    def __init__(self,people,content):
-        helper=File_helper(1,'weibo','asdasd')
+    def __init__(self,people,content,desciption):
+        helper=File_helper(1,'weibo',description=desciption)
         driver=webdriver.Chrome()
         driver.get('http://m.weibo.cn/'+people+'/'+content+'/')
         time.sleep(2)
-        weibo_text=driver.find_element_by_class_name('weibo-text')
+        #weibo_content=driver.find_element_by_class_name('weibo-text')
+        weibo_content=driver.find_element_by_class_name('weibo-text')
+        weibo_text=unicode.encode(weibo_content.text,encoding='utf-8')
+        helper.append_line('微博正文')
+        helper.append_line(weibo_text)
         js="window.scrollBy(0,10000)"
         for i in range(20):
             time.sleep(1)
             driver.execute_script(js)
-        print weibo_text.text
-        comment_list=driver.find_elements_by_tag_name('li')
+        #comment_list=driver.find_elements_by_tag_name('li')
+        comment_list=driver.find_elements_by_class_name('comment-con')
+
+        helper.append_line('评论内容')
+        i=0
         for comment in comment_list:
-            print '评论'
-            print comment.text
+            i=i+1
+            comment_text=unicode.encode(comment.text,encoding='utf-8')
+            helper.append_line('评论'+str(i))
+            helper.append_line(comment_text)
 
 
-        time.sleep(100)
 
 
 
-spider=Spider('1442246695','DCKfg9reA')
+spider=Spider('1442246695','DCKfg9reA','民众对民族政策的看法')
 
