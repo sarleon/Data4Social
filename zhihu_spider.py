@@ -2,12 +2,13 @@
 import requests
 import re
 from bs4 import BeautifulSoup
-
+from file_util import File_helper
 import sqlalchemy
 class Spider:
     base_search_url="http://www.zhihu.com/search?type=content&q="
 
     def __init__(self, topic):
+
         self.topic=topic
     def get_question_list(self):
         data={'type':'content','q':self.topic}
@@ -38,9 +39,9 @@ class Spider:
                  'Host':'www.zhihu.com'}
         question_request=requests.get(question_base_url+question_number,headers=headers)
         question_soup=BeautifulSoup(question_request.text,'lxml')
-        question_name=question_soup.find('div',id='zh-question-title').contents[1].contents[1].string
+        question_name=unicode(question_soup.find('div',id='zh-question-title').contents[1].contents[1].string).encode('utf-8')
         print question_name
-
+        print type(question_name)
         answer_div_list=question_soup.find_all('div',class_='zm-item-answer')
         i=0
         for answer_div_list_item in answer_div_list:
@@ -48,10 +49,10 @@ class Spider:
             answer_upvote=answer_div_list_item
             answer_content=str(answer_div_list_item.find('div','zm-item-rich-text').find('div','zm-editable-content'))
             answer_content=re.sub("<.*?>",'',answer_content)
-            print "**********************************************************"
-
-            print "答案"+str(i)
-            print answer_content
+            helper=File_helper(1,'zhihu','民族政策'+question_name)
+            helper.append_line("**********************************************************")
+            helper.append_line("答案"+str(i))
+            helper.append_line(answer_content)
 
 
 
