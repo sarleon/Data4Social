@@ -7,7 +7,7 @@ class File_helper:
 
     def __init__(self,question_number,info_source,description=""):
         self.question=self.question_list[question_number-1]
-        self.f=open(name=self.FILE_DIR+str(question_number)+'_'+info_source+'_'+description,mode='w')
+        self.f=open(name=self.FILE_DIR+str(question_number)+'_'+info_source+'_'+description+'.txt',mode='w')
     def append_line(self,content):
 
         self.f.write(content+"\n")

@@ -44,12 +44,13 @@ class Spider:
         print type(question_name)
         answer_div_list=question_soup.find_all('div',class_='zm-item-answer')
         i=0
+        helper=File_helper(1,'zhihu','民族政策'+question_name)
         for answer_div_list_item in answer_div_list:
             i=i+1
             answer_upvote=answer_div_list_item
             answer_content=str(answer_div_list_item.find('div','zm-item-rich-text').find('div','zm-editable-content'))
             answer_content=re.sub("<.*?>",'',answer_content)
-            helper=File_helper(1,'zhihu','民族政策'+question_name)
+
             helper.append_line("**********************************************************")
             helper.append_line("答案"+str(i))
             helper.append_line(answer_content)
