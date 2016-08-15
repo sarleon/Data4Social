@@ -7,8 +7,8 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from file_util import File_helper
 class Spider:
-    def __init__(self,people,content,desciption=None):
-        helper=File_helper(1,'weibo'+content,description=desciption)
+  def __init__(self,number ,people,content,desciption=None):
+        helper=File_helper(number,'weibo'+content,description=desciption)
         driver=webdriver.Chrome()
         driver.get('http://m.weibo.cn/'+people+'/'+content+'/')
         time.sleep(2)
@@ -36,5 +36,5 @@ class Spider:
 
 
 
-spider=Spider('1442246695','DCKfg9reA','民众对民族政策的看法')
+
 

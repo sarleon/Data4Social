@@ -44,7 +44,7 @@ class Spider:
         print type(question_name)
         answer_div_list=question_soup.find_all('div',class_='zm-item-answer')
         i=0
-        helper=File_helper(1,'zhihu','民族政策'+question_name)
+        helper=File_helper(3,'zhihu',self.topic+question_name)
         for answer_div_list_item in answer_div_list:
             i=i+1
             answer_upvote=answer_div_list_item
@@ -57,8 +57,5 @@ class Spider:
 
 
 
-if __name__=='__main__':
-    spider=Spider("asd")
-    spider.get_question_list()
-    spider.get_concrete_question('26417244')
+
 
