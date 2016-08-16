@@ -8,7 +8,7 @@ from selenium import webdriver
 from file_util import File_helper
 class Spider:
   def __init__(self,number ,people,content,desciption=None):
-        helper=File_helper(number,'weibo'+content,description=desciption)
+        helper=File_helper(3,'weibo'+content,description=desciption)
         driver=webdriver.Chrome()
         driver.get('http://m.weibo.cn/'+people+'/'+content+'/')
         time.sleep(2)
